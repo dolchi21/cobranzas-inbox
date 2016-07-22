@@ -7,7 +7,12 @@ class User extends Component {
 	}
 
 	render () {
-		return null;
+		return (
+			<div>
+				<h4>Username</h4>
+				<p>user bio</p>
+			</div>
+			);
 	}
 
 }
