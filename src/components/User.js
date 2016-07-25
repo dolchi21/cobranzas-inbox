@@ -9,7 +9,7 @@ class User extends React.Component {
 
 	render () {
 		return (
-			<div>
+			<div className="User">
 				<h4>Username</h4>
 				<p>user bio</p>
 			</div>
