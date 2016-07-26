@@ -9,14 +9,21 @@ class User extends React.Component {
 	}
 
 	render () {
+		if (this.props.children) { return this.props.children; }
+		var user = this.props.user;
 		return (
-			<div className="User">
-				<h4>Username</h4>
-				<p>user <Link to="bio">bio</Link></p>
+			<div className="component User">
+				<h4>{user.username}</h4>
+				<p>user <Link to="user/bio">bio</Link></p>
 			</div>
 			);
 	}
 
+}
+User.defaultProps = {
+	user : {
+		username : 'nn'
+	}
 }
 
 export default User;

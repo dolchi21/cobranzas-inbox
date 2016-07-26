@@ -1,8 +1,13 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 
-import MainLayoutReducer from './reducers/MainLayoutReducer';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
-var reducers = combineReducers(MainLayoutReducer);
+import AppReducer from './reducers/AppReducer';
+
+var middlewares = applyMiddleware(logger(), thunk);
+
+var reducers = combineReducers(AppReducer, middlewares);
 
 var store = createStore(reducers);
 

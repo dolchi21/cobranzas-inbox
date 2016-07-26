@@ -1,7 +1,7 @@
 function reducer(state = {}, action) {
     switch (action.type) {
         
-        case 'MAIN/RELOAD':
+        case 'APP/RELOAD':
         var count = state.reload || 0;
         return Object.assign({}, state, { reload : reload++ });
 
