@@ -1,3 +1,7 @@
 .component.App {
-    background-color: gainsboro;
+    color: white;
+    background-color: crimson;
 }
+
+.flex { display: flex; }
+.flex-dir-col { flex-direction: column; }

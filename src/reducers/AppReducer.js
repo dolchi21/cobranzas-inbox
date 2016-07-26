@@ -1,9 +1,14 @@
-function reducer(state = {}, action) {
+const RELOAD = 'APP/RELOAD';
+
+function reducer(state = { timestamp : Date.now() }, action) {
     switch (action.type) {
         
-        case 'APP/RELOAD':
+        case RELOAD:
+        console.log('RELOAD', state, state.reload);
         var count = state.reload || 0;
-        return Object.assign({}, state, { reload : reload++ });
+        return Object.assign({}, state, {
+            reload : ++count
+        });
 
         default:
         return state;
