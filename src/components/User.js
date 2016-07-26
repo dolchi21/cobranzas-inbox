@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 class User extends React.Component {
 	
@@ -11,7 +12,7 @@ class User extends React.Component {
 		return (
 			<div className="User">
 				<h4>Username</h4>
-				<p>user bio</p>
+				<p>user <Link to="bio">bio</Link></p>
 			</div>
 			);
 	}
