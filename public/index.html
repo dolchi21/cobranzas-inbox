@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>Inbox</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+	<script type="text/javascript" src="/node_modules/bluebird/js/browser/bluebird.min.js"></script>
+	<script type="text/javascript" src="/node_modules/systemjs/dist/system.js"></script>
+	<script type="text/javascript" src="/system.config.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<div id="app">
+			<i class="fa fa-spinner fa-pulse"></i>
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+		var imports = []
+
+		imports.push(SystemJS.import('react'));
+		imports.push(SystemJS.import('react-dom'));
+		imports.push(SystemJS.import('app.js'));
+
+		Promise.all(imports).spread(function(React, ReactDOM, App){
+
+			App();
+			//ReactDOM.render(App, document.getElementById('app'))
+
+		});
+
+	</script>
+</body>
+</html>
