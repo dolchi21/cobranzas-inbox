@@ -4,6 +4,8 @@ Object.defineProperty(exports, '__esModule', {
 	value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _react = require('react');
@@ -14,6 +16,10 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _InputJs = require('./Input.js');
+
+var _InputJs2 = _interopRequireDefault(_InputJs);
+
 var DocumentNumber = _react2['default'].createClass({
 	displayName: 'DocumentNumber',
 
@@ -21,35 +27,7 @@ var DocumentNumber = _react2['default'].createClass({
 		return {};
 	},
 	render: function render() {
-		return _react2['default'].createElement('input', { className: this.props.className, onChange: this.handleChange, value: this.state.value || '' });
-	},
-	handleChange: function handleChange(ev) {
-		var self = this;
-		var value = ev.target.value;
-
-		clearTimeout(this.state.start_validation);
-
-		var start_validation = setTimeout(function () {
-
-			_axios2['default'].post('/api/validate/DocumentNumber/', {
-				document_number: value
-			}).then(function (response) {
-				var _ref = response.data.data || {};
-
-				var token = _ref.token;
-
-				if (!token) {
-					return;
-				}
-
-				self.props.onValidate(token);
-			});
-		}, 1000);
-
-		this.setState({
-			value: value,
-			start_validation: start_validation
-		});
+		return _react2['default'].createElement(_InputJs2['default'], _extends({}, this.props, { url: '/validate/DocumentNumber', placeholder: 'Document Number' }));
 	}
 });
 

@@ -1,42 +1,59 @@
 import React from 'react';
 import axios from 'axios';
+import classNames from 'classnames';
+
+
+import * as API from '../api/validate.js';
+
 
 var Input = React.createClass({
 	getInitialState : function getInitialState(){
-		return {}
+		return {
+			loading : false,
+			token : null
+		}
 	},
 	render : function render(){
+		var className = classNames({
+			[this.props.className] : true,
+			'alert-warning' : this.state.loading,
+			'alert-success' : !this.state.loading && !!this.state.token
+		});
 		return (
-			<input className={this.props.className} onChange={this.handleChange}/>
+			<input className={className} style={this.props.style} placeholder={this.props.placeholder} onChange={this.handleChange}/>
 			);
 	},
 	handleChange : function handleChange(ev){
 		var self = this;
-
-		var { url, onValidate } = this.props;
+		var { onValidation } = this.props;
 
 		var value = ev.target.value;
 
 		clearTimeout(this.state.start_validation);
+		self.setState({ token : null });
 
 		var start_validation = setTimeout(function(){
-
-			axios.post(url, { value }).then(function(response){
-				
-				var { token } = response.data.data || {};
-
-				if (!token) { return; }
-
-				self.props.onValidate(token);
-
+			
+			self.setState({ loading : true });
+			
+			self.validate(value).then(function(token){
+				self.setState({ loading : false, token });
+				self.props.onValidation(token);
 			});
-
+			
 		}, 1000);
 
 		this.setState({
 			value,
 			start_validation
 		});
+	},
+	validate : function validate(value){
+		var self = this;
+
+		var { url } = this.props;
+
+		return API.validate(url, value);
 	}
 });
 

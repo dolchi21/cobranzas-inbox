@@ -1,40 +1,62 @@
 var express = require('express');
 var router = express.Router();
 
+var jwt = require('../lib/jwt');
 
 var validations = require('../lib/validations');
 
+router.post('/validate', function(req, res, next){
+
+	var tokens = req.body.tokens;
+
+	var payloads = tokens.map(function(token){
+		try {
+			return jwt.verify(token).data;
+		} catch (e) {
+			return null;
+		}
+	}).filter(function(item){
+		return !!item;
+	});
+
+	var data = payloads.reduce(function(sum = {}, attribute){
+		return Object.assign(sum, attribute);
+	});
+
+	res.json({ data });
+
+});
 
 router.post('/validate/DocumentNumber', function(req, res, next){
 
-	var document_number = req.body.document_number;
+	var document_number = req.body.value;
 
-	var token = validations.documentNumber(document_number);
+	validations.documentNumber(document_number).then(function(token){
 
-	var data = {
-		valid : !!token,
-		token
-	}
+		var data = {
+			valid : !!token,
+			token
+		}
 
-	res.json({
-		data
+		return res.json({ data });
+
 	});
 
 });
 
 router.post('/validate/CAE', function(req, res, next){
 
-	var CAE = req.body.CAE;
+	var CAE = req.body.value;
 
-	var token = validations.CAE(cae);
+	validations.CAE(CAE).then(function(token){
 
-	var data = {
-		valid : !!token,
-		token
-	}
+		var data = {
+			valid : !!token,
+			token
+		}
 
-	res.json({
-		data
+		return res.json({ data });
+
 	});
 
 });

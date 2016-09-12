@@ -32,7 +32,11 @@ app.use(function hideSequelizeError(err, req, res, next){
 });
 
 app.use(function onNotFound(err, req, res, next){
-	res.status(404).sendFile(path.join(__dirname, '/public/error-404.html'));
+	if (err.status == 404){
+		res.status(404).sendFile(path.join(__dirname, '/public/error-404.html'));
+	} else {
+		next();
+	}
 });
 
 app.use(function(err, req, res, next) {
